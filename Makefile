@@ -16,6 +16,10 @@ up:
 	@echo "Levantando los servicios..."
 	docker-compose -f $(DOCKER_COMPOSE_FILE) up -d
 
+run:
+	make build
+	make up
+
 up_logs:
 	@echo "Levantando los servicios..."
 	docker-compose -f $(DOCKER_COMPOSE_FILE) up
@@ -47,3 +51,12 @@ shell:
 test:
 	@echo "Ejecutando pruebas dentro del contenedor..."
 	docker exec -it $$(docker ps -qf "name=app") poetry run pytest
+
+clean-docker:
+	@echo "Limpiando contenedores, imágenes, volúmenes y redes..."
+	docker stop $(docker ps -aq) || true
+	docker rm $(docker ps -aq) || true
+	docker rmi $(docker images -q) || true
+	docker volume rm $(docker volume ls -q) || true
+	docker network rm $(docker network ls -q) || true
+	docker system prune -f --volumes
