@@ -1,4 +1,4 @@
-# repos:
+repos:
 #   - repo: https://github.com/pre-commit/mirrors-mypy
 #     rev: v1.13.0  # Usa la última versión estable de mypy
 #     hooks:
