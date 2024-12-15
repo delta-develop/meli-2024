@@ -60,3 +60,11 @@ clean-docker:
 	docker volume rm $(docker volume ls -q) || true
 	docker network rm $(docker network ls -q) || true
 	docker system prune -f --volumes
+
+type-check:
+	@echo "Revisando tipado"
+	poetry run mypy src/ tests/
+
+format:
+	@echo "Formateando código con Black..."
+	poetry run black src/ tests/
